@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/index.css">
+    <title>Add Item</title>
+</head>
+<body class = 'colored centered'>
+    <h1 id='addingTo'>Adding to: company, warehouse</h1>
+    <a href='/'>Cancel</a>
+    <form class='centered form' method='POST' action='/item'>
+        <div>
+            <label for="name">Item Name:</label>
+            <input id="name" type="text" name="name" autocomplete="off"/>
+        </div>
+        <br>
+        <div>
+            Quantity: <input type="number" name="quantity" autocomplete="off"/>
+        </div>
+        <br>
+        <div>
+            Pallets: <input type="number" name="size" autocomplete="off"/>
+        </div>
+        <br>
+        <div>
+            Department: 
+            <select name='department' id='department'>
+                <option value="GS">Gaskets and Seals</option>
+                <option value="HVAC">HVAC</option>
+                <option value="CM">Construction</option>
+            </select>
+        </div>
+        <br>
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>

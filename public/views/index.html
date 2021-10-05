@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/custom.scss">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src='../scripts/itemScripts.js'></script>
+    <title>Home</title>
+</head>
+<body class='centered colored'></body>
+    <H1 id='warehouseid'>Warehouse Manager</H1>
+
+
+    <div>
+        <label for='Company'><b>Select a Company:</b></label>
+        <select name='Company' id='Company'>
+            <option value="Company1">Umbrella</option>
+            <option value="Company2">Weyland Yutani</option>
+            <option value="Company3">Hyperion</option>
+        </select>
+    </div>
+    <br>
+    <div class='spaced'>
+        <a href='/form'>add a new item to this warehouse</a>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Warehouse 1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Warehouse 2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Warehouse 3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+
+    <br>
+    <div class=''>
+        <div id='items' class='centered grid'></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
