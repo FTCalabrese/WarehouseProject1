@@ -2,19 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const companySchema = new Schema({
-    name:{
-        type: String,
-        required: true
-    },
-    warehouses:[{
-        capacity: Number,
-        items: [{
-            name: String,
-            quantity: Number,
-            pallets: Number
-        }]
-    }]
+    name: String,
+    warehouses: [{type: Schema.Types.ObjectId, ref: 'Warehouse'}]
 })
 
-const Item = mongoose.model('Company', itemSchema);
+const Company = mongoose.model('Company', companySchema);
 module.exports = Company;

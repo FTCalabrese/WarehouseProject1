@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const {resolve} = require('path');
-const {addItem, getAllItems} = require('../controllers/item-controller.js');
+const {getAllCompanies} = require('../controllers/company-controller.js');
 
 
 router.get('/', async (req,res) =>{
     try
     {
-        const items = await getAllItems();
+        const items = await getAllCompanies();
         res.status(200).json(items);
     } catch(err)
     {
@@ -14,17 +14,5 @@ router.get('/', async (req,res) =>{
     }
 })
 
-router.post('/', async (req,res) =>{
-    try
-    {
-        const data = await addItem(req.body);
-        console.log(data);
-        res.sendFile(resolve('public','views','index.html/'));
-    } catch(err)
-    {
-        res.status(500).json(err);
-    }
-    
-})
 
 module.exports = router;
