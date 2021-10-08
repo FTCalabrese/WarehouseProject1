@@ -45,7 +45,6 @@ router.delete('/delete/:warehousename/:name/:quantity/:pallets', async (req,res)
     {
         res.status(500).json({message: `Unable to delete item.`});
     }
-    
 })
 
 module.exports = router;

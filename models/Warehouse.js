@@ -12,12 +12,12 @@ const itemSchema = new Schema({
 const warehouseSchema = new Schema({
     warehousename: String,
     capacity: Number,
-    items: [itemSchema]
+    items: [itemSchema],
+    inventory: Number
 })
 
 
 
 const Warehouse = mongoose.model('Warehouse', warehouseSchema);
-//const Item = mongoose.model('Item', itemSchema);
 
 module.exports = Warehouse;

@@ -7,6 +7,7 @@ function getInventory() {
         const inventory = JSON.parse(xhr.response);
         const container = document.getElementById('inventory');
         const navbar = document.getElementById('warehouse-tabs');
+        const navpage = document.getElementById('myTabContent');
         const header = document.getElementById('company-name');
 
         //pull the current company from the URL. This was passed by companyScript.js in index.html
@@ -26,10 +27,14 @@ function getInventory() {
 
                     //create a navbar tab for the warehouse
                     const li = document.createElement('li');
-                    li.innerHTML =  `<li class="nav-item">
-                    <a class="nav-link" href="#" style="color: black">${item.warehousename}</a>
-                    </li>`;
+                    const tab = document.createElement('div');
+                    li.classList = "nav-item";
+                    li.innerHTML = `<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#w${warehouseCount}" type="button" role="tab" aria-controls="profile" aria-selected="false" style="color: black">${item.warehousename}</button>`;
+                    tab.classList = "tab-pane fade";
+                    tab.id = `w${warehouseCount}`;
+                    tab.innerHTML = `${item.warehousename}, <b>Available: ${item.inventory}/${item.capacity} pallets</b>`;
                     navbar.append(li);
+                    navpage.append(tab);
 
                     //print the warehouse's inventory
                     for(let i = 0; i < item.items.length; i++)

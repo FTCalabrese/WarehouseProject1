@@ -22,10 +22,16 @@ const addWarehouse = async({warehousename, name, quantity, pallets}) =>{
     {
         await mongoose.connect(process.env.ATLAS_URI);
 
+        //check if there is enough space in the warehouse for this item
+        const hasSpace = await Warehouse.exists({warehousename: warehousename, inventory: {$gte: pallets}});
+        if(!hasSpace) throw {error: 'There is not enough space in the warehouse.'};
 
-        //If the item name already exists in this warehouse, throw an error. Tell them to edit/update instead.
-        const doc = await Warehouse.updateOne({warehousename: warehousename, 'items.name': {$ne: name}}, {$addToSet: {items: {name: name, quantity: quantity, pallets: pallets}}} );
+        //check if an item of this name already exists, if not it will be added
+        const doc = await Warehouse.updateOne({warehousename: warehousename, 'items.name': {$ne: name}}, {$addToSet: {items: {name: name, quantity: quantity, pallets: pallets}}});
         if(doc.modifiedCount === 0) throw {error: 'That item already exists in this warehouse. Edit the existing entry, or re-enter this item under a different name.'};
+
+        //if no error has been thrown, reflect changes in warehouses capacity
+        await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: -pallets}});
 
         mongoose.connection.close();
         return {status: 201, message: `item added successfully`};
@@ -48,6 +54,7 @@ const deleteWarehouse = async(warehousename, name, quantity, pallets) =>{
         }
 
         await Warehouse.findOneAndUpdate({warehousename: warehousename, name: name}, {$pull: {items: {name: name, quantity: quantity, pallets: pallets}}});
+        await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: pallets}});
         mongoose.connection.close();
         return {status: 200, message: `item removed successfully`};
     }
