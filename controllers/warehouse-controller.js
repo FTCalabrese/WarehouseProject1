@@ -22,14 +22,8 @@ const addWarehouse = async({warehousename, name, quantity, pallets}) =>{
     {
         await mongoose.connect(process.env.ATLAS_URI);
 
-        const itemExists = await Warehouse.exists({warehousename: warehousename, items: {name:name}});
-        console.log(itemExists);
-        if(itemExists) 
-        {
-            throw {error: 'This warehouse already contains an item of that name. Differentiate the name, or edit the existing item.'};
-        }
-        
-        await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$addToSet: {items: [{name: name, quantity: quantity, pallets: pallets}]}} );
+        const doc = await Warehouse.updateOne({warehousename: warehousename, 'items.name': {$ne: name}}, {$addToSet: {items: {name: name, quantity: quantity, pallets: pallets}}} );
+        if(doc.modifiedCount === 0) throw {error: 'The item already exists in this warehouse. Edit it, or re-enter this item under a different name.'};
 
         mongoose.connection.close();
         return {status: 201, message: `item added successfully`};
