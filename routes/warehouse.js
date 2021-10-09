@@ -16,17 +16,13 @@ router.get('/', async (req,res) =>{
 router.get('/:companyName', async (req,res) =>{
     res.sendFile(resolve('public', 'views', 'warehouses.html'));
  })
-router.get('/*', async (req,res) =>{
-   // res.sendFile(resolve('public', 'views', 'warehouses.html'));
-   throw res.status(500).json(err);
-})
 
 router.post('/', async (req,res) =>{
     try
     {
         const data = await addWarehouse(req.body);
         console.log(data);
-        res.sendFile(resolve('public','views','index.html'));
+        res.sendFile(resolve('public','views','addItem.html'));
         
     } catch(err)
     {
@@ -46,5 +42,10 @@ router.delete('/delete/:warehousename/:name/:quantity/:pallets', async (req,res)
         res.status(500).json({message: `Unable to delete item.`});
     }
 })
+
+router.get('/*', async (req,res) =>{
+    // res.sendFile(resolve('public', 'views', 'warehouses.html'));
+    throw res.status(500).json(err);
+ })
 
 module.exports = router;

@@ -7,8 +7,6 @@ const itemSchema = new Schema({
     pallets: Number
 })
 
-
-
 const warehouseSchema = new Schema({
     warehousename: String,
     capacity: Number,

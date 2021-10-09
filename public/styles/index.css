@@ -4,6 +4,10 @@
     margin: auto;
 }
 
+.homepage{
+    background-image: url('img_cranes.jpg');
+}
+
 .at-top{
     margin-top: 0vh;
 }
