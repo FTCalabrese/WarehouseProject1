@@ -11,7 +11,9 @@
     <script>
         
          function resetForm(){
-            document.getElementById('form').reset();
+            setTimeout(()=>{
+                document.getElementById('form').reset(); 
+            }, 1000);  
          }
    
     </script>
@@ -24,7 +26,8 @@
 
     <h1 style='margin-top: 5vh;' id='addingTo'><b>add new item</b></h1>
     <button style='margin-top: 5vh;' type="button" class='btn btn-danger' onclick="history.go(-1);">Back</button>
-    <form onsubmit="return confirm('Are you sure this information is correct?'); reset()" class='centered form' method='POST' action='/warehouse' id='form'>
+
+    <form onsubmit="resetForm();" class='centered form' method='POST' action='/warehouse' id='form'>
         <div>
             <!-- Warehouse: <input  id="warehousename" type="text" name="warehousename" autocomplete="off"/> -->
              <!-- THIS NEEDS TO AUTO-FILL LATER -->

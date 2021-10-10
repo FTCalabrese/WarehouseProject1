@@ -42,8 +42,6 @@ function getInventory(warehouseID = undefined) {
                     {
                         const div = document.createElement('tr');
 
-                        //if(i%2 == 0)div.classList = 'white';
-                        //else div.classList = 'lightgrey ';
                         div.innerHTML = `<td>${item.warehousename}</td>
                         <td class="overflow">${item.items[i].name}</td>
                         <td>${item.items[i].quantity}</td>
@@ -78,7 +76,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     getInventory();
 })
 
-//deletes table, replaces it with appropriate filtered table.
+//deletes table, calls appropritate filter function
 function filterTable(warehouseName){
     const data = document.getElementById('database-table');
     if(data === null) return; //prevents button spam breaking frontend
