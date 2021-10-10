@@ -12,8 +12,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 
 //ROUTES
-app.use('/form', require('./routes/form.js'));
-app.use('/item', require('./routes/item.js'));
+app.use('/add', require('./routes/form.js'));
+app.use('/companies', require('./routes/companies.js'));
 app.use('/warehouse', require('./routes/warehouse.js'));
 
 //RESPONSES

@@ -1,6 +1,6 @@
 function getCompanies() {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/item');
+    xhr.open('GET', '/companies');
     xhr.onload = function ()
     {
         const companies = JSON.parse(xhr.response);
