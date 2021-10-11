@@ -18,9 +18,25 @@ const getAllCompanies = async() =>{
     }
 }
 
+const addCompany = async({name, desc})=>{
+    try
+    {
+        await mongoose.connect(process.env.ATLAS_URI);
+        const company = new Company({name, desc});
+
+        await company.save();
+        mongoose.connection.close();
+        return {status: 201, message: `${name} added successfully`};
+    }
+    catch(err)
+    {
+        mongoose.connection.close();
+        return{status: 500, error: 'could not add company.'};
+    }
+}
 
 
 module.exports = 
 {
-    getAllCompanies
+    getAllCompanies, addCompany
 }

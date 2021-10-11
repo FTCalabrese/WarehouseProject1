@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/index.css">
-    <link rel="stylesheet" href="../styles/custom.scss">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src='../scripts/warehouseScripts.js'></script>
     <script>
@@ -14,6 +13,8 @@
         const qs = new URLSearchParams(window.location.search);
         return qs.get('company');
       }
+
+      
     </script>
     <title>Home</title>
 </head>
@@ -22,21 +23,19 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-warning" style='margin-top: 0vh;'>
       <a class="navbar-brand" style="margin-left: 5vh" href="/"><b>Corporation inc.</b> </a></nav>
 
-    <H1 id='company-name' class='arial' style='margin-top: 5vh;'></H1>
+    <H1 id='company-name' class='arial' style='margin-top: 5vh;'>. . .</H1>
 
     <br>
     <div class='container'>
       <div class='row g-3'>
-        <a class='col-5 centered' href='/'><button type="button" class='btn btn-light'>Home</button></a>
-          <a class='col-5 centered' href='/add'><button type="button" class='btn btn-danger'>Add inventory</button></a>
+          <div class='col-5 centered'><a href='/'><button type="button" class='btn btn-light'>Home</button></a></div>
+          <div id='addItemButton' class='col-5 centered'></div>
+          <!--<a href='/add'><button type="button" class='btn btn-danger'>Add inventory</button></a>-->
       </div>
   </div>
     <br>
     <div class="container">
       <div class="row white">
-        
-
-      
 
       <ul id='warehouse-tabs' class="nav nav-tabs" role="tablist">
           <li class="nav-item">
@@ -49,6 +48,8 @@
          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">All Warehouses</div>
         </div>
         <div>.</div>
+
+       <!--<input id='search' class='form-control' type='text'></input>--> 
         
         <div id='table-container'>
         <div id='database-table'>

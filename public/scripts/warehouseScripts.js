@@ -10,11 +10,14 @@ function getInventory(warehouseID = undefined) {
         const navbar = document.getElementById('warehouse-tabs');
         const navpage = document.getElementById('myTabContent');
         const header = document.getElementById('company-name');
+        const buttonSlot = document.getElementById('addItemButton');
 
         //pull the current company from the URL. This was passed by companyScript.js in index.html
         const qs = new URLSearchParams(window.location.search);
         const owner = qs.get('company');
         header.innerHTML = `<b>${qs.get('company')}'s Inventory</b>`;
+
+        buttonSlot.innerHTML = `<a href='/forms/item?company=${qs.get('company')}'><button type="button" class='btn btn-danger'>Add inventory</button></a>`
 
         if(xhr.status == 200 && warehouseID === undefined)
         {

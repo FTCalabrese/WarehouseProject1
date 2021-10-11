@@ -22,7 +22,6 @@ router.post('/', async (req,res) =>{
     {
         const data = await addWarehouse(req.body);
         console.log(data);
-        //res.sendFile(resolve('public','views','addItem.html'));
         
     } catch(err)
     {

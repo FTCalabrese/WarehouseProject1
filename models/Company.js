@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const companySchema = new Schema({
     name: String,
-    warehouses: [{type: Schema.Types.ObjectId, ref: 'Warehouse'}]
+    desc: String
 })
 
 const Company = mongoose.model('Company', companySchema);

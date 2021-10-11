@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 
 //ROUTES
-app.use('/add', require('./routes/form.js'));
+app.use('/forms', require('./routes/form.js'));
 app.use('/companies', require('./routes/companies.js'));
 app.use('/warehouse', require('./routes/warehouse.js'));
 
@@ -22,7 +22,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(resolve('public', 'views', 'index.html'));
+    //res.sendFile(resolve('public', 'views', 'notFound.html'));
+    res.status(404).sendFile(resolve('public', 'views', 'notFound.html'));
 });
 
 app.listen(port, () => {
