@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {resolve} = require('path');
-const {getInventory, addWarehouse, deleteWarehouse} = require('../controllers/warehouse-controller.js');
+const {getInventory, addToWarehouse, deleteFromWarehouse} = require('../controllers/warehouse-controller.js');
 
 
 router.get('/', async (req,res) =>{
@@ -20,7 +20,7 @@ router.get('/:companyName', async (req,res) =>{
 router.post('/', async (req,res) =>{
     try
     {
-        const data = await addWarehouse(req.body);
+        const data = await addToWarehouse(req.body);
         console.log(data);
         
     } catch(err)
@@ -32,7 +32,7 @@ router.post('/', async (req,res) =>{
 router.delete('/delete/:warehousename/:name/:quantity/:pallets', async (req,res) =>{
     try
     {
-        const data = await deleteWarehouse(req.params.warehousename,req.params.name, req.params.quantity, req.params.pallets);
+        const data = await deleteFromWarehouse(req.params.warehousename,req.params.name, req.params.quantity, req.params.pallets);
         console.log(data);
         res.status(200).json({message: `deleted.`});
     }

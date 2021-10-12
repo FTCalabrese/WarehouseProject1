@@ -17,7 +17,7 @@ const getInventory = async() =>{
     }
 }
 
-const addWarehouse = async({warehousename, name, quantity, pallets}) =>{
+const addToWarehouse = async({warehousename, name, quantity, pallets}) =>{
     try
     {
         await mongoose.connect(process.env.ATLAS_URI);
@@ -44,7 +44,13 @@ const addWarehouse = async({warehousename, name, quantity, pallets}) =>{
     }
 }
 
-const deleteWarehouse = async(warehousename, name, quantity, pallets) =>{
+const updateInWarehouse = async(warehousename, name, quantity, pallets, newname, newquantity, newpallets) =>{
+    const item = await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.name': {$eq: name}, 'items.quantity': {$eq: quantity}, 'items.pallets': {$eq: pallets}},
+        {'$set': {'items.$.name' : newname, 'items.$.quantity' : newquantity, 'items.$.newpallets' : newpallets}});
+
+}
+
+const deleteFromWarehouse = async(warehousename, name, quantity, pallets) =>{
     try
     {
         await mongoose.connect(process.env.ATLAS_URI);
@@ -53,9 +59,10 @@ const deleteWarehouse = async(warehousename, name, quantity, pallets) =>{
         {
             throw {error: 'Warehouse does not exist, or is not owned by this company.'};
         }
+        //, name: name
+        await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$pull: {items: {name: name, quantity: quantity, pallets: pallets}}});//remove
+        await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: pallets}}); //increment
 
-        await Warehouse.findOneAndUpdate({warehousename: warehousename, name: name}, {$pull: {items: {name: name, quantity: quantity, pallets: pallets}}});
-        await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: pallets}});
         mongoose.connection.close();
         return {status: 200, message: `item removed successfully`};
     }
@@ -69,7 +76,7 @@ const deleteWarehouse = async(warehousename, name, quantity, pallets) =>{
 module.exports = 
 {
     getInventory,
-    addWarehouse,
-    deleteWarehouse
+    addToWarehouse,
+    deleteFromWarehouse
 }
 
