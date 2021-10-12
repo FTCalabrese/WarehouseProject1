@@ -59,8 +59,11 @@ function getInventory(warehouseID = undefined) {
                         `
                         container.append(div);
                         const button = document.getElementById(`${warehouseCount},${i}`);
+                        const editButton = document.getElementById(`edit${warehouseCount},${i}`);
                         button.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
+                        editButton.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         button.onclick = deleteItem;
+                        editButton.onclick = editItem;
                     }
                 }
             }
@@ -87,6 +90,33 @@ function filterTable(warehouseName){
 
     if(warehouseName == '') getUnfilteredInventory();
     else getFilteredInventory(warehouseName);
+}
+
+function editItem(e)
+{
+    const values = e.target.value.split('/');
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', `/warehouse/update/${e.target.value}`);
+    xhr.onload = function(){
+
+        if(xhr.status === 200)
+        {
+            ;
+
+           const editBox = document.createElement('form');
+           editBox.classList = 'centered form';
+           editBox.innerHTML = `
+                    <div> Item: <input id="item" type="text" name="name" autocomplete="off" required/></div>
+                    <div> Quantity: <input id='quantity' type="text" name="quantity" autocomplete="off" required/></div>
+                    <div> Pallets: <input id='pallets' type="text" name="pallets" autocomplete="off" required/></div>
+                    <div> <input id="submit "type="submit" value="Submit"/></div>`;
+            e.target.parentNode.append(editBox);
+            document.getElementById('item').value = values[1];
+            document.getElementById('quantity').value = values[2];
+            document.getElementById('pallets').value = values[3];
+        }
+    }
+    xhr.send();
 }
 
 //tells backend to delete a given item, and removes it from the front end
@@ -174,8 +204,11 @@ function getFilteredInventory(warehouseFilter)
 
                         container.append(div);
                         const button = document.getElementById(`${warehouseCount},${i}`);
+                        const editButton = document.getElementById(`edit${warehouseCount},${i}`);
                         button.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
+                        editButton.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         button.onclick = deleteItem;
+                        editButton.onclick = editItem;
                     }
                 }
             }
@@ -255,8 +288,11 @@ function getUnfilteredInventory()
 
                         container.append(div);
                         const button = document.getElementById(`${warehouseCount},${i}`);
+                        const editButton = document.getElementById(`edit${warehouseCount},${i}`);
                         button.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
+                        editButton.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         button.onclick = deleteItem;
+                        editButton.onclick = editItem;
                     }
                 }
             }

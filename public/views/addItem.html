@@ -11,6 +11,8 @@
          function resetForm(){
 
             document.getElementById('name').value = document.getElementById('name').value.toLowerCase();
+            document.getElementById('name').value = document.getElementById('name').value.replace('/','');
+
 
             setTimeout(()=>{
                 document.getElementById('form').reset(); 
@@ -25,7 +27,6 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-warning" style='margin-top: 0vh;'>
         <a class="navbar-brand" style="margin-left: 5vh" href="/"><b>Corporation inc.</b></a></nav>
       
-
     <h1 style='margin-top: 5vh;' id='addingTo'><b>. . .</b></h1>
     <button style='margin-top: 5vh;' type="button" class='btn btn-danger' onclick="history.go(-1);">Back</button>
 

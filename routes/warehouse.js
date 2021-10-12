@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {resolve} = require('path');
-const {getInventory, addToWarehouse, deleteFromWarehouse} = require('../controllers/warehouse-controller.js');
+const {getInventory, addToWarehouse, deleteFromWarehouse, updateInWarehouse} = require('../controllers/warehouse-controller.js');
 
 
 router.get('/', async (req,res) =>{
@@ -26,6 +26,19 @@ router.post('/', async (req,res) =>{
     } catch(err)
     {
         res.status(500).json(err);
+    }
+})
+
+router.put('/update/:warehousename/:name/:quantity/:pallets', async (req,res) =>{
+    try
+    {
+        const data = await updateInWarehouse(req.params.warehousename, req.params.name, req.params.quantity, req.params.pallets);
+        console.log(data);
+        res.status(200).json({message: `updated to 1,1,1.`});
+    }
+    catch(err)
+    {
+        res.status(500).json({message: `Unable to update item.`});
     }
 })
 

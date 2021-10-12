@@ -64,3 +64,7 @@
     height: 80%;
     padding:10%
 }
+
+.shadowed{
+    text-shadow: darkslategray;
+}

@@ -15,7 +15,6 @@ const warehouseSchema = new Schema({
 })
 
 
-
 const Warehouse = mongoose.model('Warehouse', warehouseSchema);
 
 module.exports = Warehouse;
