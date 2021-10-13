@@ -10,8 +10,9 @@
     <script>
          function resetForm(){
 
+            //clean data
             document.getElementById('name').value = document.getElementById('name').value.toLowerCase();
-            document.getElementById('name').value = document.getElementById('name').value.replace('/','');
+            document.getElementById('name').value = document.getElementById('name').value.replaceAll('/','');
 
 
             setTimeout(()=>{

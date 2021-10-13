@@ -63,7 +63,7 @@ function getInventory(warehouseID = undefined) {
                         button.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         editButton.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         button.onclick = deleteItem;
-                        editButton.onclick = editItem;
+                        editButton.onclick = openEditMenu;
                     }
                 }
             }
@@ -92,28 +92,53 @@ function filterTable(warehouseName){
     else getFilteredInventory(warehouseName);
 }
 
-function editItem(e)
+function openEditMenu(e)
 {
+    //if already open, close.
+    if(document.getElementById(`editbox${e.target.value}`) !== null)
+    {
+        e.target.parentNode.removeChild(document.getElementById(`editbox${e.target.value}`));
+        return;
+    }
+
+    //else open
     const values = e.target.value.split('/');
+    const editBox = document.createElement('form');
+    
+           editBox.classList = 'centered form';
+           editBox.id = `editbox${e.target.value}`;
+
+           editBox.innerHTML = `
+                    <div> Item: <input id="item${e.target.value}" type="text" name="newname" autocomplete="off" required/></div>
+                    <div> Quantity: <input id='quantity${e.target.value}' type="number" name="newquantity" autocomplete="off" required/></div>
+                    <div> Pallets: <input id='pallets${e.target.value}' type="number" name="newpallets" autocomplete="off" required/></div>
+                    <div><button type="button" onclick="callEditItem('${e.target.value}')" style='width:50px' class='btn btn-danger'>ok</button><div></div>`;
+            
+            e.target.parentNode.append(editBox);
+            document.getElementById(`item${e.target.value}`).value = values[1];
+            document.getElementById(`quantity${e.target.value}`).value = values[2];
+            document.getElementById(`pallets${e.target.value}`).value = values[3];  
+}
+
+function callEditItem(original)
+{
+    newname =  document.getElementById(`item${original}`).value;
+    newname = newname.toLowerCase();
+    newname = newname.replaceAll('/','');
+    newquantity =  document.getElementById(`quantity${original}`).value;
+    newpallets =  document.getElementById(`pallets${original}`).value;
+    editItem(original, newname, newquantity, newpallets);
+}
+
+function editItem(original, newname, newquantity, newpallets)
+{
     const xhr = new XMLHttpRequest();
-    xhr.open('PUT', `/warehouse/update/${e.target.value}`);
+    xhr.open('PUT', `/warehouse/update/${original}/${newname}/${newquantity}/${newpallets}`);
     xhr.onload = function(){
 
         if(xhr.status === 200)
         {
-            ;
-
-           const editBox = document.createElement('form');
-           editBox.classList = 'centered form';
-           editBox.innerHTML = `
-                    <div> Item: <input id="item" type="text" name="name" autocomplete="off" required/></div>
-                    <div> Quantity: <input id='quantity' type="text" name="quantity" autocomplete="off" required/></div>
-                    <div> Pallets: <input id='pallets' type="text" name="pallets" autocomplete="off" required/></div>
-                    <div> <input id="submit "type="submit" value="Submit"/></div>`;
-            e.target.parentNode.append(editBox);
-            document.getElementById('item').value = values[1];
-            document.getElementById('quantity').value = values[2];
-            document.getElementById('pallets').value = values[3];
+           console.log( `/warehouse/update/${original}/${newname}/${newquantity}/${newpallets}`);
         }
     }
     xhr.send();
@@ -129,6 +154,7 @@ function deleteItem(e)
 
         if(xhr.status === 200)
         {
+            console.log(`/warehouse/delete/${e.target.value}`);
            e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
         }
     }
@@ -188,7 +214,6 @@ function getFilteredInventory(warehouseFilter)
                     for(let i = 0; i < item.items.length; i++)
                     {
                         const div = document.createElement('tr');
-
                         div.innerHTML = `<td>${item.warehousename}</td>
                         <td class="overflow">${item.items[i].name}</td>
                         <td>${item.items[i].quantity}</td>
@@ -199,8 +224,7 @@ function getFilteredInventory(warehouseFilter)
                         <td><button type="button" id="${warehouseCount},${i}" style='width:50px' class='btn btn-danger'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                      </svg></button></td>
-                        `
+                      </svg></button></td>`
 
                         container.append(div);
                         const button = document.getElementById(`${warehouseCount},${i}`);
@@ -208,7 +232,7 @@ function getFilteredInventory(warehouseFilter)
                         button.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         editButton.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         button.onclick = deleteItem;
-                        editButton.onclick = editItem;
+                        editButton.onclick = openEditMenu;
                     }
                 }
             }
@@ -217,7 +241,6 @@ function getFilteredInventory(warehouseFilter)
         {
             container.innerText = 'Warehouse is empty';
         }
-        
     }
     xhr.send();
 }
@@ -292,7 +315,7 @@ function getUnfilteredInventory()
                         button.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         editButton.value = `${item.warehousename}/${item.items[i].name}/${item.items[i].quantity}/${item.items[i].pallets}`;
                         button.onclick = deleteItem;
-                        editButton.onclick = editItem;
+                        editButton.onclick = openEditMenu;
                     }
                 }
             }

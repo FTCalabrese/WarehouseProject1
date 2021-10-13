@@ -44,13 +44,13 @@ const addToWarehouse = async({warehousename, name, quantity, pallets}) =>{
     }
 }
 
-const updateInWarehouse = async(warehousename, name, quantity, pallets) =>{
+const updateInWarehouse = async(warehousename, name, quantity, pallets, newname, newquantity, newpallets) =>{
     try
     {
         await mongoose.connect(process.env.ATLAS_URI);
 
-        const item = await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.name': {$eq: name}, 'items.quantity': {$eq: quantity}, 'items.pallets': {$eq: pallets}},
-            {'$set': {'items.$.name' : 1, 'items.$.quantity' : 1, 'items.$.pallets' : 1}});
+        await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.name': {$eq: name}, 'items.quantity': {$eq: quantity}, 'items.pallets': {$eq: pallets}},
+            {'$set': {'items.$.name' : newname, 'items.$.quantity' : newquantity, 'items.$.pallets' : newpallets}});
 
         mongoose.connection.close();
         return {status: 200, message: `item edited successfully`};

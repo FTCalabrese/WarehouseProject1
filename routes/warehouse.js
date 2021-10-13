@@ -17,6 +17,19 @@ router.get('/:companyName', async (req,res) =>{
     res.sendFile(resolve('public', 'views', 'warehouses.html'));
  })
 
+ router.put('/update/:warehousename/:name/:quantity/:pallets/:newname/:newquantity/:newpallets', async (req,res) =>{
+    try
+    {
+        const data = await updateInWarehouse(req.params.warehousename, req.params.name, req.params.quantity, req.params.pallets, req.params.newname, req.params.newquantity, req.params.newpallets);
+        console.log(data);
+        res.status(200).json({message: `updated`});
+    }
+    catch(err)
+    {
+        res.status(500).json({message: `Unable to update item.`});
+    }
+})
+
 router.post('/', async (req,res) =>{
     try
     {
@@ -26,19 +39,6 @@ router.post('/', async (req,res) =>{
     } catch(err)
     {
         res.status(500).json(err);
-    }
-})
-
-router.put('/update/:warehousename/:name/:quantity/:pallets', async (req,res) =>{
-    try
-    {
-        const data = await updateInWarehouse(req.params.warehousename, req.params.name, req.params.quantity, req.params.pallets);
-        console.log(data);
-        res.status(200).json({message: `updated to 1,1,1.`});
-    }
-    catch(err)
-    {
-        res.status(500).json({message: `Unable to update item.`});
     }
 })
 
@@ -56,8 +56,8 @@ router.delete('/delete/:warehousename/:name/:quantity/:pallets', async (req,res)
 })
 
 router.get('/*', async (req,res) =>{
-    // res.sendFile(resolve('public', 'views', 'warehouses.html'));
-    throw res.status(500).json(err);
+    res.sendFile(resolve('public', 'views', 'index.html'));
+    //throw res.status(500).json(err);
  })
 
 module.exports = router;
