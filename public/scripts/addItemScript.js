@@ -37,7 +37,6 @@ function getWarehouses()
 
 function submitItem()
 {
-    
     const warehousename = document.getElementById('warehousename').value;
     const itemName = document.getElementById('name').value;
     const quantity = document.getElementById('quantity').value;
@@ -50,32 +49,32 @@ function submitItem()
     {
         if(xhr.status == 201)
         {
-            textfield.innerText = "item added successfully.";
+            textfield.innerText = `${itemName} added successfully.`;
         }
         else
         {
-            textfield.innerText = `failed to add item.\ncheck that it doesn't already exist, or exceed the capacity of ${warehousename}`;
+            textfield.innerText = `failed to add ${itemName}.\ncheck that it doesn't already exist,\nor exceed the capacity of the warehouse.`;
         }
     }
     xhr.send();
 }
 
-function resetForm() {
+function submitForm() {
 
     //clean data
     document.getElementById('name').value = document.getElementById('name').value.toLowerCase();
-   document.getElementById('name').value = document.getElementById('name').value.replaceAll('/','');
-   document.getElementById('quantity').value = Math.abs(document.getElementById('quantity').value);
-   document.getElementById('pallets').value = Math.abs(document.getElementById('pallets').value);
+    document.getElementById('name').value = document.getElementById('name').value.replaceAll('/','');
+    document.getElementById('quantity').value = Math.abs(document.getElementById('quantity').value);
+    document.getElementById('pallets').value = Math.abs(document.getElementById('pallets').value);
 
-   submitItem();
+    submitItem();
 
    //clear fields
-   setTimeout(()=>{
-       const selectedWarehouse = document.getElementById('warehousename').value;
-       document.getElementById('form').reset(); 
-       document.getElementById('warehousename').value = selectedWarehouse;
-   }, 1000);  
+    setTimeout(()=>{
+        const selectedWarehouse = document.getElementById('warehousename').value;
+        document.getElementById('form').reset(); 
+         document.getElementById('warehousename').value = selectedWarehouse;
+    }, 1000);  
 }
 
 window.addEventListener('DOMContentLoaded', ()=>{
