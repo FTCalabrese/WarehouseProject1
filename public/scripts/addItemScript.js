@@ -34,6 +34,17 @@ function getWarehouses()
     }
     xhr.send();
 }
+/*
+function submitItem()
+{
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/warehouse');
+    xhr.onload = function ()
+    {
+
+    }
+    xhr.send();
+}*/
 
 window.addEventListener('DOMContentLoaded', ()=>{
     getWarehouses();

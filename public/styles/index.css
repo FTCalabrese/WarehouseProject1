@@ -21,6 +21,10 @@
     margin-top: 0vh;
 }
 
+.lowered{
+    margin-top: 2vh;
+}
+
 .overflow{
     overflow-x: hidden;
     overflow-y: hidden;

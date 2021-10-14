@@ -155,11 +155,12 @@ function openEditMenu(e)
            editBox.classList = 'centered form-group';
            editBox.id = `editbox${e.target.value}`;
 
-           editBox.innerHTML = `
-                    <div> Item: <input id="item${e.target.value}" type="text" name="newname" autocomplete="off" required/></div>
-                    <div> Quantity: <input id='quantity${e.target.value}' type="number" name="newquantity" autocomplete="off" required/></div>
-                    <div> Pallets: <input id='pallets${e.target.value}' type="number" name="newpallets" autocomplete="off" required/></div>
-                    <div><button type="button" onclick="callEditItem('${e.target.value}')" style='width:50px' class='btn btn-danger'>ok</button><div></div>`;
+           editBox.innerHTML = `<div class='row'>
+                    <div class='col'> Item: <input id="item${e.target.value}" type="text" name="newname" autocomplete="off" required/></div>
+                    <div class='col'> Quantity: <input id='quantity${e.target.value}' type="number" name="newquantity" autocomplete="off" required/></div>
+                    <div class='col'> Pallets: <input id='pallets${e.target.value}' type="number" name="newpallets" autocomplete="off" required/></div>
+                    <div class='col'><button type="button" onclick="callEditItem('${e.target.value}')" style='width:50px' class='btn btn-danger'>ok</button></div>
+                    </div>`;
             
             e.target.parentNode.append(editBox);
             document.getElementById(`item${e.target.value}`).value = values[1];
@@ -174,7 +175,9 @@ function callEditItem(original)
     newname = newname.toLowerCase();
     newname = newname.replaceAll('/','');
     newquantity =  document.getElementById(`quantity${original}`).value;
+    newquantity = Math.abs(document.getElementById(`quantity${original}`).value); 
     newpallets =  document.getElementById(`pallets${original}`).value;
+    newpallets = Math.abs(document.getElementById(`pallets${original}`).value);
     editItem(original, newname, newquantity, newpallets);
 }
 

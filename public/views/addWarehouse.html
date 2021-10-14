@@ -26,22 +26,22 @@
     <button style='margin-top: 5vh;' type="button" class='btn btn-danger shadowed' onclick="history.go(-1);">Back</button>
 
     <form onsubmit="resetForm();" class='centered form' method='POST' action='/forms' id='form'>
-        <br>
-        <div>
+        
+        <div class='lowered'>
             Company: <select name="_ownerId" id="_ownerId" required></select>
         </div>
-        <br>
-        <div>
+        
+        <div class='lowered'>
             <label for="warehousename">Name:</label>
             <input id="warehousename" type="text" name="warehousename" autocomplete="off" required/>
         </div>
-        <br>
-        <div>
+        
+        <div class='lowered'>
             <label for="capacity">Capacity:</label>
             <input id="capacity" type="number" name="capacity" autocomplete="off" required/>
         </div>
-        <br>
-        <input id="submit"type="submit" value="Submit"/>
+        
+        <input class='lowered' id="submit"type="submit" value="Submit"/>
     </form>
     <br>
     <div class='form-notification'></div>
