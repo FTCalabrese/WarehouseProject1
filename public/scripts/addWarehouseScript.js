@@ -1,3 +1,4 @@
+//grabs company to add warehouse to
 function getCompany()
 {
         const container = document.getElementById('_ownerId');

@@ -31,7 +31,7 @@ const addToWarehouse = async({warehousename, name, quantity, pallets}) =>{
         if(doc.modifiedCount === 0) throw {error: 'That item already exists in this warehouse. Edit the existing entry, or re-enter this item under a different name.'};
         
 
-        //if no error has been thrown, reflect changes in warehouses capacity
+        //if no error has been thrown, reflect changes in warehouse's capacity
         await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: -pallets}});
 
         mongoose.connection.close();
@@ -49,13 +49,15 @@ const updateInWarehouse = async(warehousename, name, quantity, pallets, newname,
     {
         await mongoose.connect(process.env.ATLAS_URI);
 
+        //if the item name already exists, and it's not this item, don't update
         const check = await Warehouse.exists({warehousename: warehousename, 'items.name': {$eq: newname}});
         if(check == true && newname !== name) throw {error: 'That item already exists in this warehouse.'};
 
+        //update item
         await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.name': {$eq: name}},
             {'$set': {'items.$.name' : newname, 'items.$.quantity' : newquantity, 'items.$.pallets' : newpallets}});
 
-        //update pallets
+        //reflect changes in pallets
         await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: pallets}}); //increment
         await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: - newpallets}}); //increment
 
@@ -77,9 +79,9 @@ const deleteFromWarehouse = async(warehousename, name, quantity, pallets) =>{
 
         if(! await Warehouse.exists({warehousename: warehousename})) 
         {
-            throw {error: 'Warehouse does not exist, or is not owned by this company.'};
+            throw {error: 'Warehouse does not exist'};
         }
-        //, name: name
+        
         await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$pull: {items: {name: name, quantity: quantity, pallets: pallets}}});//remove
 
         await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: pallets}}); //increment

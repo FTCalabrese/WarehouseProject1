@@ -57,7 +57,6 @@ router.delete('/delete/:warehousename/:name/:quantity/:pallets', async (req,res)
 
 router.get('/*', async (req,res) =>{
     res.sendFile(resolve('public', 'views', 'index.html'));
-    //throw res.status(500).json(err);
  })
 
 module.exports = router;

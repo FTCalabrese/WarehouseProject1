@@ -1,3 +1,4 @@
+//generates the initial table and populates it
 function getInventory(warehouseID = undefined) {
 
     const xhr = new XMLHttpRequest();
@@ -77,7 +78,7 @@ function deleteItem(e)
     xhr.send();
 }
 
-//deletes table, calls appropritate filter function
+//deletes table, calls appropritate filter function to rebuild it 
 function filterTable(warehouseName){
     const data = document.getElementById('database-table');
     if(data === null) return; //prevents button spam breaking frontend
@@ -88,7 +89,7 @@ function filterTable(warehouseName){
 }
 
 //reloads the inventory with a given warehouse filter
-//does not reload or change the tabs like getInventory() does
+//does not create the tabs like getInventory() does
 function getFilteredInventory(warehouseFilter = undefined)
 {
     let warehouseCount = 0;
@@ -166,6 +167,7 @@ function openEditMenu(e)
             document.getElementById(`pallets${e.target.value}`).value = values[3];  
 }
 
+//openEditMenu() refused to call editItem() on click. This function is just a middleman for now
 function callEditItem(original)
 {
     newname =  document.getElementById(`item${original}`).value;
@@ -176,6 +178,7 @@ function callEditItem(original)
     editItem(original, newname, newquantity, newpallets);
 }
 
+//updates item on backend and refreshes page
 function editItem(original, newname, newquantity, newpallets)
 {
     const xhr = new XMLHttpRequest();

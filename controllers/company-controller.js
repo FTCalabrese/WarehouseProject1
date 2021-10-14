@@ -1,6 +1,5 @@
 const Company = require('../models/Company.js');
 const mongoose = require('mongoose');
-const { MongoDriverError } = require('mongodb');
 
 const getAllCompanies = async() =>{
     try

@@ -1,3 +1,4 @@
+//fills index page with existing companies + new company button
 function getCompanies() {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '/companies');
