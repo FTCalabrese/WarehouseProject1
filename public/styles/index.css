@@ -4,6 +4,14 @@
     margin: auto;
 }
 
+.logo{
+    font-family: monospace;
+}
+
+.shadowed{
+    box-shadow: 2px 2px black;
+}
+
 .at-top{
     margin-top: 0vh;
 }
@@ -59,8 +67,4 @@
     width: 75%;
     height: 80%;
     padding:10%
-}
-
-.shadowed{
-    text-shadow: darkslategray;
 }

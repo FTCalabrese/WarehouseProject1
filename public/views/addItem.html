@@ -14,7 +14,9 @@
             document.getElementById('name').value = document.getElementById('name').value.toLowerCase();
             document.getElementById('name').value = document.getElementById('name').value.replaceAll('/','');
             setTimeout(()=>{
+                const selectedWarehouse = document.getElementById('warehousename').value;
                 document.getElementById('form').reset(); 
+                document.getElementById('warehousename').value = selectedWarehouse;
             }, 1000);  
          }
    
@@ -24,11 +26,11 @@
 <body class = 'grey centered'>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-warning" style='margin-top: 0vh;'>
-        <a class="navbar-brand" style="margin-left: 5vh" href="/"><b>Corporation inc.</b></a>
+        <a class="navbar-brand logo" style="margin-left: 5vh" href="/"><b>Corporation inc.</b></a>
     </nav>
       
     <h1 style='margin-top: 5vh;' id='addingTo'><b>. . .</b></h1>
-    <button style='margin-top: 5vh;' type="button" class='btn btn-danger' onclick="history.go(-1);">Back</button>
+    <button style='margin-top: 5vh;' type="button" class='btn btn-danger shadowed' onclick="history.go(-1);">Back</button>
     <div class='centered'>
     <form onsubmit="resetForm();" class='centered form' method='POST' action='/warehouse' id='form'>
         <div>

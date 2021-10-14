@@ -53,6 +53,22 @@ const updateInWarehouse = async(warehousename, name, quantity, pallets, newname,
         const check = await Warehouse.exists({warehousename: warehousename, 'items.name': {$eq: newname}});
         if(check == true && newname !== name) throw {error: 'That item already exists in this warehouse.'};
 
+        const warehouse = await Warehouse.findOne({warehousename: warehousename});
+        const space = warehouse.inventory;
+        let itemFits = true;
+        console.log(newpallets + " - " + pallets + " " + space);
+        if(newpallets >= pallets)
+        {
+            console.log(newpallets + " is greater than or equal to " + pallets);
+            itemFits = await Warehouse.exists({warehousename: warehousename, inventory: {$gte: (newpallets - pallets)}})
+        } 
+        else 
+        {
+            console.log(newpallets + " is less than " + pallets);
+            itemFits = await Warehouse.exists({warehousename: warehousename, capacity: {$gte: newpallets - pallets}})
+        }
+        if(itemFits == false) throw {error: 'Not enough room in inventory to allow change.'};
+
         //update item
         await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.name': {$eq: name}},
             {'$set': {'items.$.name' : newname, 'items.$.quantity' : newquantity, 'items.$.pallets' : newpallets}});
