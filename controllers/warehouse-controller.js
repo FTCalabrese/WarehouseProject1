@@ -49,7 +49,10 @@ const updateInWarehouse = async(warehousename, name, quantity, pallets, newname,
     {
         await mongoose.connect(process.env.ATLAS_URI);
 
-        await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.quantity': {$eq: quantity}, 'items.pallets': {$eq: pallets}, 'items.name': {$eq: name}},
+        const check = await Warehouse.exists({warehousename: warehousename, 'items.name': {$eq: newname}});
+        if(check == true && newname !== name) throw {error: 'That item already exists in this warehouse.'};
+
+        await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.name': {$eq: name}},
             {'$set': {'items.$.name' : newname, 'items.$.quantity' : newquantity, 'items.$.pallets' : newpallets}});
 
         //update pallets
