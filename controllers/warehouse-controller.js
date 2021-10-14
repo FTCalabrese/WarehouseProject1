@@ -49,8 +49,12 @@ const updateInWarehouse = async(warehousename, name, quantity, pallets, newname,
     {
         await mongoose.connect(process.env.ATLAS_URI);
 
-        await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.name': {$eq: name}, 'items.quantity': {$eq: quantity}, 'items.pallets': {$eq: pallets}},
+        await Warehouse.findOneAndUpdate({warehousename: warehousename, 'items.quantity': {$eq: quantity}, 'items.pallets': {$eq: pallets}, 'items.name': {$eq: name}},
             {'$set': {'items.$.name' : newname, 'items.$.quantity' : newquantity, 'items.$.pallets' : newpallets}});
+
+        //update pallets
+        await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: pallets}}); //increment
+        await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: - newpallets}}); //increment
 
         mongoose.connection.close();
         return {status: 200, message: `item edited successfully`};
@@ -74,6 +78,7 @@ const deleteFromWarehouse = async(warehousename, name, quantity, pallets) =>{
         }
         //, name: name
         await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$pull: {items: {name: name, quantity: quantity, pallets: pallets}}});//remove
+
         await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: pallets}}); //increment
 
         mongoose.connection.close();
@@ -86,11 +91,29 @@ const deleteFromWarehouse = async(warehousename, name, quantity, pallets) =>{
     }
 }
 
+const newWarehouse = async({_ownerId, warehousename, capacity}) =>{
+    try
+    {
+        await mongoose.connect(process.env.ATLAS_URI);
+        const warehouse = new Warehouse({items: [], warehousename, _ownerId, capacity, inventory: capacity});
+
+        await warehouse.save();
+        mongoose.connection.close();
+        return {status: 201, message: `${warehousename} added successfully`};
+    }
+    catch(err)
+    {
+        mongoose.connection.close();
+        return{status: 500, error: 'could not add company.'};
+    }
+}
+
 module.exports = 
 {
     getInventory,
     addToWarehouse,
     deleteFromWarehouse,
-    updateInWarehouse
+    updateInWarehouse,
+    newWarehouse
 }
 

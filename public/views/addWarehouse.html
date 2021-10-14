@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src='../scripts/addWarehouseScript.js'></script>
+    <title>New Warehouse</title>
+    <script></script>
+    <script>
+        function resetForm(){
+            setTimeout(()=>{
+            document.getElementById('form').reset();}, 1000);  
+        }
+    </script>
+</head>
+<body class = 'grey centered'>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning" style='margin-top: 0vh;'>
+        <a class="navbar-brand" style="margin-left: 5vh" href="/"><b>Corporation inc.</b></a></nav>
+      
+
+    <h1 style='margin-top: 5vh;'><b>New Warehouse</b></h1>
+    <a href='/'><button style='margin-top: 5vh;' type="button" class='btn btn-danger'>Back</button></a>
+
+    <form onsubmit="resetForm();" class='centered form' method='POST' action='/forms' id='form'>
+        <br>
+        <div>
+            Company: <select name="_ownerId" id="_ownerId" required></select>
+        </div>
+        <br>
+        <div>
+            <label for="warehousename">Name:</label>
+            <input id="warehousename" type="text" name="warehousename" autocomplete="off" required/>
+        </div>
+        <br>
+        <div>
+            <label for="capacity">Capacity:</label>
+            <input id="capacity" type="number" name="capacity" autocomplete="off" required/>
+        </div>
+        <br>
+        <input id="submit"type="submit" value="Submit"/>
+    </form>
+    <br>
+    <div class='form-notification'></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

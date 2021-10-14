@@ -1,3 +1,4 @@
+//pulls available warehouses to be added to
 function getWarehouses()
 {
     const xhr = new XMLHttpRequest();
@@ -23,7 +24,6 @@ function getWarehouses()
                     option.innerText = `${warehouse.warehousename}`;
                     container.append(option);
                 }
-                
             }
         }
         else

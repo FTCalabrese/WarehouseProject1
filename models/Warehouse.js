@@ -9,6 +9,7 @@ const itemSchema = new Schema({
 
 const warehouseSchema = new Schema({
     warehousename: String,
+    _ownerId: String,
     capacity: Number,
     items: [itemSchema],
     inventory: Number
