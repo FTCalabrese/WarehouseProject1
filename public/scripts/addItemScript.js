@@ -34,18 +34,51 @@ function getWarehouses()
     }
     xhr.send();
 }
-/*
+
 function submitItem()
 {
+    
+    const warehousename = document.getElementById('warehousename').value;
+    const itemName = document.getElementById('name').value;
+    const quantity = document.getElementById('quantity').value;
+    const pallets = document.getElementById('pallets').value;
+    const textfield = document.getElementById('form-notification');
+
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/warehouse');
+    xhr.open('POST', `/warehouse/${warehousename}/${itemName}/${quantity}/${pallets}`);
     xhr.onload = function ()
     {
-
+        if(xhr.status == 201)
+        {
+            textfield.innerText = "item added successfully.";
+        }
+        else
+        {
+            textfield.innerText = `failed to add item.\ncheck that it doesn't already exist, or exceed the capacity of ${warehousename}`;
+        }
     }
     xhr.send();
-}*/
+}
+
+function resetForm() {
+
+    //clean data
+    document.getElementById('name').value = document.getElementById('name').value.toLowerCase();
+   document.getElementById('name').value = document.getElementById('name').value.replaceAll('/','');
+   document.getElementById('quantity').value = Math.abs(document.getElementById('quantity').value);
+   document.getElementById('pallets').value = Math.abs(document.getElementById('pallets').value);
+
+   submitItem();
+
+   //clear fields
+   setTimeout(()=>{
+       const selectedWarehouse = document.getElementById('warehousename').value;
+       document.getElementById('form').reset(); 
+       document.getElementById('warehousename').value = selectedWarehouse;
+   }, 1000);  
+}
 
 window.addEventListener('DOMContentLoaded', ()=>{
     getWarehouses();
 })
+

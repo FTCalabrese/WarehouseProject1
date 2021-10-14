@@ -17,7 +17,7 @@ const getInventory = async() =>{
     }
 }
 
-const addToWarehouse = async({warehousename, name, quantity, pallets}) =>{
+const addToWarehouse = async(warehousename, name, quantity, pallets) =>{
     try
     {
         await mongoose.connect(process.env.ATLAS_URI);
@@ -41,7 +41,7 @@ const addToWarehouse = async({warehousename, name, quantity, pallets}) =>{
     catch(err)
     {
         mongoose.connection.close();
-        return {status: 400, err};
+        throw {status: 400, err};
     }
 }
 
@@ -84,7 +84,7 @@ const updateInWarehouse = async(warehousename, name, quantity, pallets, newname,
     catch(err)
     {
         mongoose.connection.close();
-        return {status: 400, error: err};
+        throw {status: 400, error: err};
     }
 
 }

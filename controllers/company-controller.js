@@ -46,7 +46,7 @@ const addCompany = async({name, desc})=>{
     catch(err)
     {
         mongoose.connection.close();
-        return{status: 500, error: 'could not add company.'};
+        throw {status: 500, error: 'could not add company.'};
     }
 }
 

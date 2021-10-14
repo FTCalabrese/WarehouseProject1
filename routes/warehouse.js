@@ -30,13 +30,15 @@ router.get('/:companyName', async (req,res) =>{
     }
 })
 
-router.post('/', async (req,res) =>{
+router.post('/:warehousename/:name/:quantity/:pallets', async (req,res) =>{
     try
     {
-        const data = await addToWarehouse(req.body);
+        const data = await addToWarehouse(req.params.warehousename, req.params.name, req.params.quantity, req.params.pallets);
         console.log(data);
+        res.status(201).json({message: `item created`});
         
     } catch(err)
+
     {
         res.status(500).json(err);
     }
