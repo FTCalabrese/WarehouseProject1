@@ -30,6 +30,7 @@ const addToWarehouse = async({warehousename, name, quantity, pallets}) =>{
         const doc = await Warehouse.updateOne({warehousename: warehousename, 'items.name': {$ne: name}}, {$addToSet: {items: {name: name, quantity: quantity, pallets: pallets}}});
         if(doc.modifiedCount === 0) throw {error: 'That item already exists in this warehouse. Edit the existing entry, or re-enter this item under a different name.'};
         
+        
 
         //if no error has been thrown, reflect changes in warehouse's capacity
         await Warehouse.findOneAndUpdate({warehousename: warehousename}, {$inc: {inventory: -pallets}});

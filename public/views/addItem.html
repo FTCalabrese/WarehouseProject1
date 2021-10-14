@@ -36,24 +36,22 @@
     <button style='margin-top: 5vh;' type="button" class='btn btn-danger shadowed' onclick="history.go(-1);">Back</button>
     <div class='centered'>
     <form onsubmit="resetForm();" class='centered form' method='POST' action='/warehouse' id='form'>
+
         <div>
             Warehouse: <select name="warehousename" id="warehousename" required></select>
         </div>
-        
         <div class='lowered'> 
             <label for="name">Item Name:</label>
             <input id="name" type="text" name="name" autocomplete="off" required/>
         </div>
-        
         <div class='lowered'>
             Quantity: <input id='quantity' type="number" name="quantity" autocomplete="off" required/>
         </div>
-       
         <div class='lowered'>
             Pallets: <input id='pallets' type="number" name="pallets" autocomplete="off" required/>
         </div>
-        
         <input class='lowered' id="submit"type="submit" value="Submit"/>
+        
     </form></div>
     
     <div class='form-notification'></div>
