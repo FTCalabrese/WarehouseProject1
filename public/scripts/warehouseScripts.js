@@ -19,7 +19,7 @@ function getInventory(warehouseID = undefined) {
         header.innerHTML = `<b>${qs.get('company')}'s Inventory</b>`;
 
         buttonSlot.innerHTML = `<a href='/forms/item?company=${qs.get('company')}'><button type="button" class='btn btn-danger shadowed'>Add inventory</button></a>`
-
+        
         if(xhr.status == 200 && warehouseID === undefined)
         {
             //for every warehouse...
@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', ()=>{ getInventory();});
 function deleteItem(e)
 {
     const xhr = new XMLHttpRequest();
-    xhr.open('DELETE', `/warehouse/delete/${e.target.value}`);//DELETE FROM DB
+    xhr.open('DELETE', `/warehouse/${e.target.value}`);//DELETE FROM DB
 
     xhr.onload = function(){
 
@@ -182,12 +182,12 @@ function callEditItem(original)
 function editItem(original, newname, newquantity, newpallets)
 {
     const xhr = new XMLHttpRequest();
-    xhr.open('PUT', `/warehouse/update/${original}/${newname}/${newquantity}/${newpallets}`);
+    xhr.open('PUT', `/warehouse/${original}/${newname}/${newquantity}/${newpallets}`);
     xhr.onload = function(){
 
         if(xhr.status === 200)
         {
-           console.log(`/warehouse/update/${original}/${newname}/${newquantity}/${newpallets}`);
+           console.log(`/warehouse/${original}/${newname}/${newquantity}/${newpallets}`);
         }
         window.location.reload(true);
     }

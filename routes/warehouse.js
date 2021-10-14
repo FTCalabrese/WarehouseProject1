@@ -17,7 +17,7 @@ router.get('/:companyName', async (req,res) =>{
     res.sendFile(resolve('public', 'views', 'warehouses.html'));
  })
 
- router.put('/update/:warehousename/:name/:quantity/:pallets/:newname/:newquantity/:newpallets', async (req,res) =>{
+ router.put('/:warehousename/:name/:quantity/:pallets/:newname/:newquantity/:newpallets', async (req,res) =>{
     try
     {
         const data = await updateInWarehouse(req.params.warehousename, req.params.name, req.params.quantity, req.params.pallets, req.params.newname, req.params.newquantity, req.params.newpallets);
@@ -42,7 +42,7 @@ router.post('/', async (req,res) =>{
     }
 })
 
-router.delete('/delete/:warehousename/:name/:quantity/:pallets', async (req,res) =>{
+router.delete('/:warehousename/:name/:quantity/:pallets', async (req,res) =>{
     try
     {
         const data = await deleteFromWarehouse(req.params.warehousename,req.params.name, req.params.quantity, req.params.pallets);

@@ -12,6 +12,11 @@
     box-shadow: 2px 2px black;
 }
 
+.bordered{
+    border: 3px solid black;
+}
+
+
 .at-top{
     margin-top: 0vh;
 }
@@ -30,16 +35,6 @@
 }
 .grey{
     background-color: gray;
-}
-.lightgrey{
-    background-color: lightgray;
-}
-.spaced{
-    align-items: stretch;
-}
-
-.stretched{
-    align-content: stretch;
 }
 
 .form{

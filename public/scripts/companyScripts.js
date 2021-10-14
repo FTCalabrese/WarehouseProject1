@@ -17,7 +17,7 @@ function getCompanies() {
                 container.append(div);
 
                 const divBody = document.createElement('div');
-                div.classList = 'white card-body';
+                div.classList = 'white bordered card-body';
                 divBody.innerHTML = `
                 <p class="card-text">${company.desc}</p>
                 <a href="/warehouse/inventory?company=${company.name}" class="btn btn-warning shadowed">view warehouses</a>`;

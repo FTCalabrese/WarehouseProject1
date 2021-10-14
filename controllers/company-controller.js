@@ -17,6 +17,22 @@ const getAllCompanies = async() =>{
     }
 }
 
+const checkCompanyExists = async({name}) =>{
+    try
+    {
+        await mongoose.connect(process.env.ATLAS_URI);
+        const exists = await Company.exists({name: name});
+        mongoose.connection.close();
+        return exists;
+
+    }
+    catch(err)
+    {
+        mongoose.connection.close();
+        throw err;
+    }
+}
+
 const addCompany = async({name, desc})=>{
     try
     {
@@ -37,5 +53,5 @@ const addCompany = async({name, desc})=>{
 
 module.exports = 
 {
-    getAllCompanies, addCompany
+    getAllCompanies, addCompany, checkCompanyExists
 }
