@@ -117,6 +117,11 @@ const newWarehouse = async({_ownerId, warehousename, capacity}) =>{
     try
     {
         await mongoose.connect(process.env.ATLAS_URI);
+
+
+        const exists = await Warehouse.exists({warehousename: warehousename});
+        if(exists) throw {error: 'That Warehouse already exists.'};
+
         const warehouse = new Warehouse({items: [], warehousename, _ownerId, capacity, inventory: capacity});
 
         await warehouse.save();
@@ -126,7 +131,7 @@ const newWarehouse = async({_ownerId, warehousename, capacity}) =>{
     catch(err)
     {
         mongoose.connection.close();
-        return{status: 500, error: 'could not add company.'};
+        throw {status: 500, error: 'could not add company.'};
     }
 }
 

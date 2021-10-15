@@ -43,7 +43,6 @@ function getCompanies() {
         {
             container.innerText = 'Warehouse is empty';
         }
-        
     }
     xhr.send();
 }
@@ -51,3 +50,38 @@ function getCompanies() {
 window.addEventListener('DOMContentLoaded', ()=>{
     getCompanies();
 })
+
+function submitCompany()
+{
+    const name = document.getElementById('name').value;
+    const desc = document.getElementById('desc').value;
+    const textfield = document.getElementById('form-notification');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `/companies/${name}/${desc}`);
+    xhr.onload = function ()
+    {
+        if(xhr.status == 201)
+        {
+            textfield.innerText = `${name} added successfully.`;
+        }
+        else
+        {
+            textfield.innerText = `${name} already exists.\nNothing was changed.`;
+        }
+    }
+    xhr.send();
+}
+
+function submitForm() {
+
+    //clean data
+    document.getElementById('name').value = document.getElementById('name').value.replaceAll('/','');
+
+    submitCompany();
+
+   //clear fields
+    setTimeout(()=>{
+        document.getElementById('form').reset();
+    }, 1000);  
+}

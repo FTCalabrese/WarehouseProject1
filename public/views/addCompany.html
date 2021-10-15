@@ -7,12 +7,7 @@
     <link rel="stylesheet" href="../styles/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Add Company</title>
-    <script>
-        function resetForm(){
-            setTimeout(()=>{
-            document.getElementById('form').reset();}, 1000);  
-        }
-    </script>
+    <script src='../scripts/companyScripts.js'></script>
 </head>
 <body class = 'grey centered'>
 
@@ -23,7 +18,7 @@
     <h1 style='margin-top: 5vh;'><b>New Company</b></h1>
     <a href='/'><button style='margin-top: 5vh;' type="button" class='btn btn-danger shadowed'>Back</button></a>
 
-    <form onsubmit="resetForm();" class='centered form' method='POST' action='/companies' id='form'>
+    <form class='centered form' id='form'>
         
         <div class='lowered'>
             <label for="name">Name:</label>
@@ -34,10 +29,10 @@
             Motto/Desc: <input id='desc' type="text" name="desc" autocomplete="off" required/>
         </div>
         
-        <input class='lowered' id="submit"type="submit" value="Submit"/>
+        <button type="button" class='btn btn-danger shadowed lowered' onclick="submitForm()">submit</button>
     </form>
     
-    <div class='form-notification'></div>
+    <div id='form-notification' class='lowered'>. . .</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

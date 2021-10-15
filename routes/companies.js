@@ -14,11 +14,12 @@ router.get('/', async (req,res) =>{
     }
 })
 
-router.post('/', async (req,res) =>{
+router.post('/:name/:desc', async (req,res) =>{
     try
     {
-        const data = await addCompany(req.body);
+        const data = await addCompany(req.params.name, req.params.desc);
         console.log(data);
+        res.status(201).json({message: `created.`});
         
     } catch(err)
     {

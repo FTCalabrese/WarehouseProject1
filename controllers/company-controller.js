@@ -33,10 +33,14 @@ const checkCompanyExists = async({name}) =>{
     }
 }
 
-const addCompany = async({name, desc})=>{
+const addCompany = async(name, desc)=>{
     try
     {
         await mongoose.connect(process.env.ATLAS_URI);
+
+        const exists = await Company.exists({name: name});
+        if(exists) throw {error: 'That Company already exists.'};
+
         const company = new Company({name, desc});
 
         await company.save();
@@ -46,7 +50,7 @@ const addCompany = async({name, desc})=>{
     catch(err)
     {
         mongoose.connection.close();
-        throw {status: 500, error: 'could not add company.'};
+        throw {status: 400, err};
     }
 }
 
