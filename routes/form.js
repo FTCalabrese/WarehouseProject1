@@ -18,12 +18,12 @@ router.get('/:company', (req,res) => {
     res.sendFile(resolve('public', 'views', 'addItem.html'));
 })
 
-router.post('/', async (req,res) =>{
+router.post('/:_ownerId/:warehousename/:capacity', async (req,res) =>{
 try
 {
-    const data = await newWarehouse(req.body);
+    const data = await newWarehouse(req.params._ownerId, req.params.warehousename, req.params.capacity);
     console.log(data);
-    res.status(200).json({message: `created`});
+    res.status(201).json({message: `created`});
         
 } catch(err)
 {

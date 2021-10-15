@@ -113,7 +113,7 @@ const deleteFromWarehouse = async(warehousename, name, quantity, pallets) =>{
     }
 }
 
-const newWarehouse = async({_ownerId, warehousename, capacity}) =>{
+const newWarehouse = async(_ownerId, warehousename, capacity) =>{
     try
     {
         await mongoose.connect(process.env.ATLAS_URI);
@@ -131,7 +131,7 @@ const newWarehouse = async({_ownerId, warehousename, capacity}) =>{
     catch(err)
     {
         mongoose.connection.close();
-        throw {status: 500, error: 'could not add company.'};
+        throw {status: 500, error: 'could not add warehouse.'};
     }
 }
 
