@@ -2,19 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const itemSchema = new Schema({
-    name: String,
-    quantity: Number,
-    pallets: Number
+    name: {type: String, required: true},
+    quantity: {type: Number, required: true},
+    pallets: {type: Number, required: true}
 })
 
 const warehouseSchema = new Schema({
-    warehousename: String,
-    _ownerId: String,
-    capacity: Number,
+    warehousename: {type: String, required: true, unique: true},
+    _ownerId: {type: String, required: true},
+    capacity: {type: Number, required: true},
     items: [itemSchema],
-    inventory: Number
+    inventory: {type: Number, required: true}
 })
-
 
 const Warehouse = mongoose.model('Warehouse', warehouseSchema);
 
