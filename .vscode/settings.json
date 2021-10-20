@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/7a84f28f-7913-408d-a1a2-f1b1b0ba7c6f/resourceGroups/AzureTraining/providers/Microsoft.Web/sites/artist-chinook-ftc-102021",
+    "appService.deploySubpath": "."
+}
